@@ -11,11 +11,12 @@ void init(void)
 }
 
 void reshape(int, int);
+void drawRiver();
 void drawSky();
 void drawRoad();
 void drawWheatField();
 void drawBridge();
-void drawRiver();
+
 void drawWindow(int x1, int y1, int x2, int y2,float r, float g, float b);              // take the house outline and draw windows relative
 void drawTree();
 void drawHouseOutline (int x1, int y1, int x2, int y2, float r, float g, float b);
@@ -102,8 +103,8 @@ void reshape(int width, int height){
 
 void drawSky(){
     glBegin(GL_POLYGON);
-        glColor3f(0.929, 0.508, 0.522);
-        glVertex2f(-600, 0);
+        glColor3f(0.829, 0.608, 0.622);
+        glVertex2f(-600, 300);
         glVertex2f(-600, 600);
         glColor3f(1.0, 1.0, 0.0);
         glVertex2f(600, 600);
@@ -231,21 +232,17 @@ void drawBridge(){
 }
 
 void drawRiver(){
-    glColor3f(0.255, 0.412, 0.882);
-    int river_top[] = {-600, -300};
-    int river_bot[] = {600, -100};
-    glRectiv(river_top, river_bot);
-    
     glBegin(GL_POLYGON);
-        glColor3f(0.929, 0.508, 0.522);
+    glColor3f(0.000, 0.000, 0.804);
+        glVertex2f(-600, -300);
+        glVertex2f(-600, -100);
+        
+    glColor3f(0.255, 0.412, 0.882);
+        glVertex2f(600, -300);
+        glVertex2f(600, -100);
         glVertex2f(-600, 0);
-        glVertex2f(-600, 600);
-        glColor3f(1.0, 1.0, 0.0);
-        glVertex2f(600, 600);
-        glVertex2f(600, 000);
     glEnd();
-    
-    
+     
 }
 
 void drawTree(){
