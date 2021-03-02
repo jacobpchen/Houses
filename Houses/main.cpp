@@ -103,7 +103,7 @@ void reshape(int width, int height){
 
 void drawSky(){
     glBegin(GL_POLYGON);
-        glColor3f(0.829, 0.608, 0.622);
+        glColor3f(1.0, 0.608, 0.622);
         glVertex2f(-600, 300);
         glVertex2f(-600, 600);
         glColor3f(1.0, 1.0, 0.0);
@@ -217,17 +217,6 @@ void drawBridge(){
     int bridge_top[] = {200, -80};
     int bridge_bottom[] = {300, -320};
     glRectiv(bridge_top, bridge_bottom);
-    
-    /*
-    // draw lines on the bridge
-    glColor3f(0.545, 0.271, 0.075);
-    glBegin(GL_LINES);
-    for (int i = -300; i < -80; i+= 20){
-        glVertex2f(200, i);
-        glVertex2f(300, i);
-    }
-    glEnd();
-     */
     
 }
 
