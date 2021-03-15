@@ -2,7 +2,7 @@
 #include <GLUT/glut.h>
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
-
+#include <math.h>
 void init(void)
 {
     glClearColor(1.0, 1.0, 1.0, 0.0);    //set display window color to white
@@ -16,6 +16,7 @@ void drawSky();
 void drawRoad();
 void drawWheatField();
 void drawBridge();
+void drawBear();
 
 void drawWindow(int x1, int y1, int x2, int y2,float r, float g, float b);              // take the house outline and draw windows relative
 void drawTree();
@@ -37,6 +38,7 @@ void display(void)
     drawBridge();
     drawRoad();
     drawTree();
+    drawBear();
     
     // Draw first house
     drawRoof(-550, -200, -450, -100, -350, -200, 0.878, 1.000, 1.000);
@@ -241,10 +243,38 @@ void drawWheatField(){
 }
 
 void drawBridge(){
+    GLubyte bridge[] = {
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0xAA, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x11, 0x00, 0x11, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x11, 0x00, 0x11, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x11, 0x00, 0x11, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x11, 0x00, 0x11, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x11, 0x00, 0x11, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x11, 0x00, 0x11, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x11, 0x00, 0x11, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    };
+    
     glColor3f(0.824, 0.706, 0.549);
     int bridge_top[] = {200, -80};
     int bridge_bottom[] = {300, -320};
     glRectiv(bridge_top, bridge_bottom);
+    
+    glEnable(GL_POLYGON_STIPPLE);
+    glColor3f(0.545, 0.271, 0.075);
+    glPolygonStipple(bridge);
+    glRectiv(bridge_top, bridge_bottom);
+    glDisable(GL_POLYGON_STIPPLE);
+    
+    
     
 }
 
@@ -293,3 +323,53 @@ void drawWindow(int x1, int y1, int x2, int y2,float r, float g, float b){
     glRectiv(right_window_1, right_window_2);
 }
 
+void drawFilledCircle(double x, double y, double radius)
+{
+    const double PI = 3.14159265359;
+    glVertex2d(x,y);
+    glBegin(GL_TRIANGLE_FAN);
+    for(int i =0; i <= 360; i++){
+        double angle = i * 180 / PI;
+        glVertex2d(x + sin(angle) * radius,y + cos(angle)* radius);
+    }
+    glEnd();
+}
+
+void drawBear(){
+    glColor3f(0.627, 0.322, 0.176); // brown
+    // draw head
+    drawFilledCircle(0, -350, 23);
+    // draw body
+    drawFilledCircle(50, -350, 35);
+    // draw out ears
+    drawFilledCircle(-10, -322, 10);
+    drawFilledCircle(10, -322, 10);
+    // draw inner ears
+    glColor3f(0.941, 0.502, 0.502); // pink
+    drawFilledCircle(-10, -320, 5);
+    drawFilledCircle(10, -320, 5);
+    // draw legs
+    glColor3f(0.627, 0.322, 0.176);
+    drawFilledCircle(35, -385, 10);
+    drawFilledCircle(70, -385, 10);
+    // draw tail
+    drawFilledCircle(90, -335, 10);
+    
+    
+    // draw eyes
+    glColor3f(0, 0, 0);
+    glPointSize(4);
+    glBegin(GL_POINTS);
+    glVertex2f(7, -340);
+    glVertex2i(-6, -340);
+    glEnd();
+    
+    // draw nose
+    glBegin(GL_TRIANGLES);
+    glVertex2i(-4, -345);
+    glVertex2i(5, -345);
+    glVertex2i(0, -350);
+    glEnd();
+    
+    
+}
